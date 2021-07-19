@@ -6,14 +6,17 @@ This is a basic todo app that make use of midleware.
 
 Speaking in another way. **Middleware** functions are functions that have access to the `request` object (req), the `response` object (res), and the next middleware function in the application’s request-response cycle.
 
-So middleware is the between request and response. So when a client request something to the server, this guy can handle this request and decide if it is a good or bad request.
+So middleware is the guy between request and response. When a client ask for something to the server, this guy can handle this request and decide if it is a good or bad request.
 
 This is a good example:
 
-The client ask to the server: Hey bud, does this user exists?
-So the guy in the middle answer: Just a second. Let me check.
+The client ask to the server: Hey bud, I need to see all the todos of this user?
 
-And if the answer is _ok_ it move to the next check or request.
+The route then as to the middle guy: Hey, middle guy, does this user exists?.
+
+The middle check is the user exists and reply: Sure, let me call the next guy. Oh, there is no next guy (if there are no others middlewares funtions), so go on, show the todos.
+
+> If there are other middleares, for example: to check the todos, the credentials etc. This middleare is called.
 
 ```js
 function checksExistsUserAccount(request, response, next) {
