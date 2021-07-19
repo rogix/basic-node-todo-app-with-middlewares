@@ -10,14 +10,6 @@ So middleware is the guy between request and response. When a client ask for som
 
 This is a good example:
 
-The client ask to the server: Hey bud, I need to see all the todos of this user?
-
-The route then as to the middle guy: Hey, middle guy, does this user exists?.
-
-The middle check is the user exists and reply: Sure, let me call the next guy. Oh, there is no next guy (if there are no others middlewares funtions), so go on, show the todos.
-
-> If there are other middleares, for example: to check the todos, the credentials etc. This middleare is called.
-
 ```js
 function checksExistsUserAccount(request, response, next) {
   const { username } = request.headers;
@@ -34,7 +26,11 @@ function checksExistsUserAccount(request, response, next) {
 }
 ```
 
-To use this middleware is simple.
+The client ask to the server: Hey bud, I need to see all the `todos` of this user.
+
+The route then ask to the middle guy: Hey, middle guy, does this user exists?.
+
+The middle guy check is the user exists and reply: Sure, let me call the next guy. Oh, there is no next guy (if there are no others middlewares funtions), so go on, show the todos.
 
 ```js
 app.get("/todos", checksExistsUserAccount, (request, response) => {
@@ -45,3 +41,5 @@ app.get("/todos", checksExistsUserAccount, (request, response) => {
 ```
 
 So everytime we call this route the `checkExistsUserAccount` is called.
+
+> If there are other middleares, for example: to check the todos, the credentials etc. they will be called until the last one. If some middleware fail it returns an error.
